@@ -1,0 +1,44 @@
+{
+  "name": "@omermecitoglu/generate-service-worker",
+  "version": "1.0.0",
+  "description": "Generates service worker for Next.js apps",
+  "author": "Omer Mecitoglu",
+  "homepage": "https://github.com/omermecitoglu/generate-service-worker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omermecitoglu/generate-service-worker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/omermecitoglu/generate-service-worker/issues"
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "pwa",
+    "progressive web app",
+    "service worker",
+    "generate",
+    "generator"
+  ],
+  "license": "MIT",
+  "bin": "./bin/generate.js",
+  "scripts": {
+    "prebuild": "ts-unused-exports tsconfig.json",
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "webpack": "^5.88.2",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.2",
+    "@types/yargs": "^17.0.26",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "eslint": "^8.50.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "ts-unused-exports": "^10.0.1",
+    "typescript": "^5.2.2"
+  }
+}
