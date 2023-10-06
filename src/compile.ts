@@ -1,3 +1,4 @@
+import path from "node:path";
 import webpack from "webpack";
 
 export default function compile(entryPath: string, outputPath: string, fileName: string, buildId: string, files: string[]) {
@@ -15,6 +16,23 @@ export default function compile(entryPath: string, outputPath: string, fileName:
         STATIC_FILES: JSON.stringify(files),
       }),
     ],
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          use: [{
+            loader: "ts-loader",
+            options: {
+              configFile: path.join(__dirname, "../tsconfig.json"),
+            },
+          }],
+          exclude: /node_modules/,
+        },
+      ],
+    },
+    resolve: {
+      extensions: [".ts", ".js"],
+    },
   });
 
   compiler.run((err, stats) => {

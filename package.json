@@ -28,6 +28,7 @@
     "build": "tsc"
   },
   "dependencies": {
+    "ts-loader": "^9.4.4",
     "webpack": "^5.88.2",
     "yargs": "^17.7.2"
   },

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./bin",
     "target": "es5",
-    "lib": [],
+    "lib": ["webworker"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
