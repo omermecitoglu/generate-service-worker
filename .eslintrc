@@ -13,6 +13,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "ignorePatterns": [
+    "service-worker.d.ts"
   ],
   "rules": {
     "sort-imports": ["error", { "ignoreDeclarationSort": true }],

@@ -22,6 +22,7 @@
   ],
   "license": "MIT",
   "bin": "./bin/generate.js",
+  "types": "./service-worker.d.ts",
   "scripts": {
     "prebuild": "ts-unused-exports tsconfig.json",
     "dev": "tsc --watch",

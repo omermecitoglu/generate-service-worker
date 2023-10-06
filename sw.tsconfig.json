@@ -6,6 +6,6 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "include": [],
+  "include": ["./service-worker.d.ts"],
   "exclude": ["node_modules"]
 }
