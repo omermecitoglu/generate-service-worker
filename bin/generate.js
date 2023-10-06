@@ -17,12 +17,12 @@ function getFiles(dir, files, baseDir) {
     var fileList = node_fs_1.default.readdirSync(dir);
     for (var _i = 0, fileList_1 = fileList; _i < fileList_1.length; _i++) {
         var file = fileList_1[_i];
-        var name = "".concat(dir, "/").concat(file);
-        if (node_fs_1.default.statSync(name).isDirectory()) {
-            getFiles(name, files, baseDir);
+        var name_1 = "".concat(dir, "/").concat(file);
+        if (node_fs_1.default.statSync(name_1).isDirectory()) {
+            getFiles(name_1, files, baseDir);
         }
         else {
-            files.push(node_path_1.default.relative(baseDir, name));
+            files.push(node_path_1.default.relative(baseDir, name_1));
         }
     }
     return files;

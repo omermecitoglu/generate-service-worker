@@ -1,6 +1,6 @@
 {
   "name": "@omermecitoglu/generate-service-worker",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Generates service worker for Next.js apps",
   "author": "Omer Mecitoglu",
   "homepage": "https://github.com/omermecitoglu/generate-service-worker#readme",
