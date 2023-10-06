@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": ["WebWorker"],
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [],
+  "exclude": ["node_modules"]
+}

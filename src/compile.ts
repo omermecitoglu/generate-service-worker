@@ -23,7 +23,7 @@ export default function compile(entryPath: string, outputPath: string, fileName:
           use: [{
             loader: "ts-loader",
             options: {
-              configFile: path.join(__dirname, "../tsconfig.json"),
+              configFile: path.join(__dirname, "../sw.tsconfig.json"),
             },
           }],
           exclude: /node_modules/,
