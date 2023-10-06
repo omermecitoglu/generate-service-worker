@@ -27,7 +27,7 @@ function compile(entryPath, outputPath, fileName, buildId, files) {
                     use: [{
                             loader: "ts-loader",
                             options: {
-                                configFile: node_path_1.default.join(__dirname, "../tsconfig.json"),
+                                configFile: node_path_1.default.join(__dirname, "../sw.tsconfig.json"),
                             },
                         }],
                     exclude: /node_modules/,
