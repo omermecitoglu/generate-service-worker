@@ -8,6 +8,18 @@ const args = yargs.argv;
 const buildFolder = path.join(process.cwd(), ".next");
 const buildIdFile = path.join(buildFolder, "BUILD_ID");
 
+function getRoutes(): string[] {
+  try {
+    const manifest = path.join(buildFolder, "server", "functions-config-manifest.json");
+    const data = fs.readFileSync(manifest, "utf8");
+    const jsonObject = JSON.parse(data);
+    return Object.keys(jsonObject.functions ?? {});
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
 function getFiles(dir: string, files: string[] = [], baseDir: string = dir) {
   const fileList = fs.readdirSync(dir);
   for (const file of fileList) {
@@ -30,11 +42,22 @@ fs.readFile(buildIdFile, "utf8", (error, buildId) => {
   if (typeof args.entry !== "string") {
     return console.log("entry is not specified! use --entry parameter");
   }
+  if (!(/\.(js|ts)$/i.test(args.entry))) {
+    return console.log("entry is not a javascript file!");
+  }
 
+  const entryFileName = args.entry.replace(/\.(js|ts)/gi, "");
+  const outputFile = entryFileName + ".js";
   const entryPath = path.join(process.cwd(), args.entry);
-  const outputPath = path.join(process.cwd(), "public");
-  const staticFiles = path.join(buildFolder, "static");
-  const cachedFiles = getFiles(staticFiles).map(f => path.join("/_next/", f));
+  const publicFolder = path.join(process.cwd(), "public");
+  const publicFiles = getFiles(publicFolder).filter(f => !f.endsWith(outputFile));
+  const staticFolder = path.join(buildFolder, "static");
+  const staticFiles = getFiles(staticFolder).map(f => path.join("/_next", "static", f));
+  const appRoutes = getRoutes().filter(r => !r.startsWith("/api"));
 
-  compile(entryPath, outputPath, "sw.js", buildId, cachedFiles);
+  compile(entryPath, publicFolder, outputFile, buildId, [
+    ...appRoutes,
+    ...publicFiles,
+    ...staticFiles,
+  ]);
 });
