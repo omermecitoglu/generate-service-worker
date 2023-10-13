@@ -20,6 +20,7 @@ var compile_1 = __importDefault(require("./compile"));
 var args = yargs_1.default.argv;
 var buildFolder = node_path_1.default.join(process.cwd(), ".next");
 var buildIdFile = node_path_1.default.join(buildFolder, "BUILD_ID");
+var validEntryFileExtensions = [".js", ".ts"];
 function getRoutes() {
     var _a;
     try {
@@ -35,8 +36,8 @@ function getRoutes() {
 }
 function getAppVersion() {
     try {
-        var manifest = node_path_1.default.join(buildFolder, "server", "functions-config-manifest.json");
-        var data = node_fs_1.default.readFileSync(manifest, "utf8");
+        var packageJson = node_path_1.default.join(process.cwd(), "package.json");
+        var data = node_fs_1.default.readFileSync(packageJson, "utf8");
         var jsonObject = JSON.parse(data);
         return jsonObject.version;
     }
@@ -69,11 +70,11 @@ node_fs_1.default.readFile(buildIdFile, "utf8", function (error, buildId) {
     if (typeof args.entry !== "string") {
         return console.log("entry is not specified! use --entry parameter");
     }
-    if (!(/\.(js|ts)$/i.test(args.entry))) {
-        return console.log("entry is not a javascript file!");
+    var entryFile = node_path_1.default.parse(args.entry);
+    if (!validEntryFileExtensions.includes(entryFile.ext)) {
+        return console.log("entry is not a JavaScript file!");
     }
-    var entryFileName = args.entry.replace(/\.(js|ts)/gi, "");
-    var outputFile = entryFileName + ".js";
+    var outputFile = entryFile.name + ".js";
     var entryPath = node_path_1.default.join(process.cwd(), args.entry);
     var publicFolder = node_path_1.default.join(process.cwd(), "public");
     var publicFiles = getFiles(publicFolder).filter(function (f) { return !f.endsWith(outputFile); });
