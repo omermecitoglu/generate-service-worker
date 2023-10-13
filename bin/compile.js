@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var node_path_1 = __importDefault(require("node:path"));
 var webpack_1 = __importDefault(require("webpack"));
-function compile(entryPath, outputPath, fileName, buildId, files) {
+function compile(entryPath, outputPath, fileName, version, files) {
     var compiler = (0, webpack_1.default)({
         entry: entryPath,
         output: {
@@ -16,7 +16,7 @@ function compile(entryPath, outputPath, fileName, buildId, files) {
         target: "webworker",
         plugins: [
             new webpack_1.default.DefinePlugin({
-                BUILD_ID: JSON.stringify(buildId),
+                BUILD_ID: JSON.stringify(version),
                 STATIC_FILES: JSON.stringify(files),
             }),
         ],
