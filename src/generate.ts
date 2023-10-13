@@ -22,8 +22,8 @@ function getRoutes(): string[] {
 
 function getAppVersion(): string {
   try {
-    const manifest = path.join(buildFolder, "server", "functions-config-manifest.json");
-    const data = fs.readFileSync(manifest, "utf8");
+    const packageJson = path.join(process.cwd(), "package.json");
+    const data = fs.readFileSync(packageJson, "utf8");
     const jsonObject = JSON.parse(data);
     return jsonObject.version;
   } catch (error) {
