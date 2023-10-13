@@ -7,6 +7,7 @@ import compile from "./compile";
 const args = yargs.argv;
 const buildFolder = path.join(process.cwd(), ".next");
 const buildIdFile = path.join(buildFolder, "BUILD_ID");
+const validEntryFileExtensions = [".js", ".ts"];
 
 function getRoutes(): string[] {
   try {
@@ -53,12 +54,12 @@ fs.readFile(buildIdFile, "utf8", (error, buildId) => {
   if (typeof args.entry !== "string") {
     return console.log("entry is not specified! use --entry parameter");
   }
-  if (!(/\.(js|ts)$/i.test(args.entry))) {
-    return console.log("entry is not a javascript file!");
+  const entryFile = path.parse(args.entry);
+  if (!validEntryFileExtensions.includes(entryFile.ext)) {
+    return console.log("entry is not a JavaScript file!");
   }
 
-  const entryFileName = args.entry.replace(/\.(js|ts)/gi, "");
-  const outputFile = entryFileName + ".js";
+  const outputFile = entryFile.name + ".js";
   const entryPath = path.join(process.cwd(), args.entry);
   const publicFolder = path.join(process.cwd(), "public");
   const publicFiles = getFiles(publicFolder).filter(f => !f.endsWith(outputFile));
