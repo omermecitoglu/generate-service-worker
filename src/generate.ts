@@ -20,6 +20,17 @@ function getRoutes(): string[] {
   }
 }
 
+function getAppVersion(): string {
+  try {
+    const manifest = path.join(buildFolder, "server", "functions-config-manifest.json");
+    const data = fs.readFileSync(manifest, "utf8");
+    const jsonObject = JSON.parse(data);
+    return jsonObject.version;
+  } catch (error) {
+    return "0.0.0";
+  }
+}
+
 function getFiles(dir: string, files: string[] = [], baseDir: string = dir) {
   const fileList = fs.readdirSync(dir);
   for (const file of fileList) {
@@ -54,8 +65,9 @@ fs.readFile(buildIdFile, "utf8", (error, buildId) => {
   const staticFolder = path.join(buildFolder, "static");
   const staticFiles = getFiles(staticFolder).map(f => path.join("/_next", "static", f));
   const appRoutes = getRoutes().filter(r => !r.startsWith("/api"));
+  const version = `v${getAppVersion()}.${buildId}`;
 
-  compile(entryPath, publicFolder, outputFile, buildId, [
+  compile(entryPath, publicFolder, outputFile, version, [
     ...appRoutes,
     ...publicFiles,
     ...staticFiles,

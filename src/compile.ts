@@ -1,7 +1,7 @@
 import path from "node:path";
 import webpack from "webpack";
 
-export default function compile(entryPath: string, outputPath: string, fileName: string, buildId: string, files: string[]) {
+export default function compile(entryPath: string, outputPath: string, fileName: string, version: string, files: string[]) {
   const compiler = webpack({
     entry: entryPath,
     output: {
@@ -12,7 +12,7 @@ export default function compile(entryPath: string, outputPath: string, fileName:
     target: "webworker",
     plugins: [
       new webpack.DefinePlugin({
-        BUILD_ID: JSON.stringify(buildId),
+        BUILD_ID: JSON.stringify(version),
         STATIC_FILES: JSON.stringify(files),
       }),
     ],
